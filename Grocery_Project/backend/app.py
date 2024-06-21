@@ -54,8 +54,7 @@ class LoginResource(Resource):
             access_token = create_access_token(identity=user.role)
             user_info={
                 "id":user.id,
-                "username":user.username,
-                "role":user.role
+                "username":user.username
             }
             return {'access_token':access_token,"user": user_info},200
         else:

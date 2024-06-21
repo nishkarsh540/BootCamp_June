@@ -1,6 +1,8 @@
 // store/index.js
 import { createStore } from 'vuex';
 import router from '../router';
+import {jwtDecode} from 'jwt-decode';
+
 export default createStore({
   state: {
     token: localStorage.getItem('token') || '',
@@ -8,15 +10,26 @@ export default createStore({
   },
   getters: {
     isAuthenticated: state => !!state.token,
-    userRole: state => state.user ? state.user.role : null
+    userRole: state => {
+      if (state.token) {
+        const decoded = jwtDecode(state.token);
+        return decoded.sub;
+      }
+      return null;
+    }
   },
   mutations: {
     setToken(state, token) {
       state.token = token;
       if (token) {
         localStorage.setItem('token', token);
+        const decoded  = jwtDecode(token)
+        state.user = {role:decoded.role};
+        console.log(decoded.sub);
       } else {
         localStorage.removeItem('token');
+        state.user= null;
+        localStorage.removeItem('user')
       }
     },
     setUser(state, user) {
@@ -36,9 +49,8 @@ export default createStore({
     }
   },
   actions: {
-    login({ commit }, { token, user }) {
+    login({ commit }, { token }) {
       commit('setToken', token);
-      commit('setUser', user);
     },
     logout({ commit }) {
       commit('logout');
