@@ -11,7 +11,7 @@
     <!-- Display existing categories in a table -->
     <table v-if="categories.length > 0">
       <thead>
-        <tr>
+        <tr>  
           <th>ID</th>
           <th>Name</th>
           <th>Actions</th>

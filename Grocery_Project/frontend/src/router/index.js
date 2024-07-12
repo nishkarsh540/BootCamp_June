@@ -1,7 +1,7 @@
 // router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import store from '../store';
-import ProductManagement from '../views/ProductManagement.vue';
+
 import HomeView from '../views/HomeView.vue';
 import SignupUser from '../views/SignupUser.vue';
 import LoginUser from '../views/LoginUser.vue';
@@ -19,12 +19,8 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: LoginUser// Redirect to home if logged in
-  },
-  {
-    path: '/product',
-    name: 'product',
-    component: ProductManagement
+    component: LoginUser,
+    meta: { requiresGuest: true } // Redirect to home if logged in
   },
   {
     path: '/signup',

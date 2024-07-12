@@ -37,6 +37,7 @@ export default {
           password: this.password
         });
         const { access_token, user } = response.data;
+
         // Update Vuex store instead of directly updating localStorage
         this.$store.dispatch('login', { token: access_token, user });
 

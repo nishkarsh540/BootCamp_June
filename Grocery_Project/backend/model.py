@@ -15,7 +15,6 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
     role = db.Column(db.String, default='user')
-    is_active = db.Column(db.Boolean, default=True, nullable=False)
 
     def __repr__(self):
         return f'<User {self.username}>'
